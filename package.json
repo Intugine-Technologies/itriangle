@@ -1,0 +1,27 @@
+{
+  "name": "itriangle",
+  "version": "1.0.0",
+  "description": "Itriangle Wired GPS Parser",
+  "main": "mqtt_publisher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DirtboxDemon/itriangle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DirtboxDemon/itriangle/issues"
+  },
+  "homepage": "https://github.com/DirtboxDemon/itriangle#readme",
+  "dependencies": {
+    "@intugine-technologies/mongodb": "^1.11.4",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mqtt": "^2.18.8",
+    "pino": "^5.10.8"
+  }
+}
