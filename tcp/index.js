@@ -13,9 +13,11 @@ server.on('connection', (socket) => {
         const data = raw_data.toString();
         logger.info({ event: 'data', raw_data, data, client });
         let parsed = parser(data);
-        if (parsed && parsed.length > 0) {
-            data_middleware(parsed);
-        } else send_invalid_data_to_api(data);
+        let used = process.memoryUsage().heapUsed / 1024 / 1024;
+        console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+        // if (parsed && parsed.length > 0) {
+            // data_middleware(parsed);
+        // } else send_invalid_data_to_api(data);
     });
     socket.on('error', (err) => {
         logger.error({ event: 'error', err, client });

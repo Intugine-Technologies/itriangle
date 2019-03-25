@@ -1,6 +1,7 @@
 const splitPacketandGet = (packetString) => {
 	let packets = packetString.split(`\n`);
-	let parsedPackets = packets.filter(packet => packet).map(packet => getParsedObject(packet));
+	// let parsedPackets = packets.filter(packet => packet).map(packet => getParsedObject(packet))
+	let parsedPackets = packets.filter(packet => packet && packet.match(/.*\*/)).map(packet => getParsedObject(packet)).filter(parsedPacket => parsedPacket);
 	return parsedPackets;
 };
 const decodeMessageCode = (messageCode) => {
@@ -76,10 +77,11 @@ const getParsedObject = (packetString) => {
 	packetString = packetString.replace(/(\n|\r)/g, '');
 	let params = packetString.split(',');
 	let packetFormat = null;
-	if (params.length <= 18) packetFormat = 'first';
+	console.log(`PARAM LENGTH:`,params.length)
+	if (params.length === 18) packetFormat = 'first';
 	else if (params.length > 50) packetFormat = 'expanded';
 	else packetFormat = 'compressed';
-	console.log(`PACKET RECEIVED, PARAMS:`, params, `PARAM LENGTH: ${params.length}`);
+	// console.log(`PACKET RECEIVED, PARAMS:`, params, `PARAM LENGTH: ${params.length}`);
 
 	let returnObj = null;
 	switch (packetFormat) {
@@ -151,13 +153,15 @@ const getParsedObject = (packetString) => {
 			break;
 
 		case 'compressed':
-			returnObj = {};
+			returnObj = null;
 			break;
 		default:
 			break;
 	}
-	returnObj.checksum_verified = returnObj.checksum === checksum ? true : false;
+	if(returnObj)returnObj.checksum_verified = returnObj.checksum === checksum ? true : false;
 	return returnObj;
+
+	return packetString;
 };
 
 
